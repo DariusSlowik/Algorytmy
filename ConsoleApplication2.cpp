@@ -58,6 +58,76 @@ void Del_x(node* &H, int x) {
 	}
 }
 
+void sort(node*&H, int x) {
+	if (H == NULL) {
+		Add(H, x);
+	}
+	else {
+		if (H->val > x) {
+			node* p = H;
+			while (p->next != NULL&&p->next->val < x) {
+				p = p->next;
+			}
+			Add(p->next, x);
+		}
+	}
+}
+
+void swapFL(node*&H) {
+	if (H != NULL&&H->next != NULL) {
+		if (H->next->next == NULL) {
+			node *e = H->next;
+			H->next = NULL;
+			e->next = H;
+			H = e;
+		}
+		else {
+			node *p = H;
+			while (p->next->next != NULL) {
+				p = p->next;
+			}
+			node*e = H;
+			H = p->next;
+			p->next->next = e->next;
+			p->next = e;
+			e->next = NULL;
+		}
+	}
+}
+
+int countEL(node*H) {
+	int a=0;
+	node*p = H;
+	while (p != NULL) {
+		p = p->next;
+		a++;
+	}
+	return a;
+}
+
+void SplitList(node*&H, node*&H1, node*&H2) {
+	if (H != NULL) {
+		if (H->next == NULL) {
+			H1 = H;
+			H = NULL;
+		}
+		else {
+			int c = countEL(H);
+			node* p = H;
+			for (int i = 0; i < (c/2)-1; i++) {
+				p = p->next;
+			}
+			H2 = p->next;
+			p->next = NULL;
+			H1 = H;
+			H = NULL;
+		}
+	}
+}
+
+void Merge(node*&H, node*&H1, node*&H2) {
+
+}
 int main() {
 	node *H = NULL;
 	H = new node;
